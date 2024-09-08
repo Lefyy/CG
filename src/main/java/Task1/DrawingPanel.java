@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class DrawingPanel extends JFrame {
 
-    private final int BACKGROUND_WIDTH = 800;
-    private final int BACKGROUND_HEIGHT = 800;
+    private final int BACKGROUND_WIDTH = 300;
+    private final int BACKGROUND_HEIGHT = 450;
 
     public DrawingPanel() {
         setTitle("Drawing Panel");
@@ -18,6 +18,8 @@ public class DrawingPanel extends JFrame {
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        Bunny bunny = new Bunny(0, 5, 300, 400);
+        bunny.draw(g2d);
     }
 
 }
