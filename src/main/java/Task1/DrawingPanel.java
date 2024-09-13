@@ -2,24 +2,40 @@ package Task1;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class DrawingPanel extends JFrame {
+public class DrawingPanel extends JPanel implements ActionListener {
 
-    private final int BACKGROUND_WIDTH = 1000;
-    private final int BACKGROUND_HEIGHT = 1000;
+    private final int PANEL_WIDTH;
+    private final int PANEL_HEIGHT;
+    private final int TIMER_DELAY;
+    private Timer timer;
+    private int ticksFromStart = 0;
 
-    public DrawingPanel() {
-        setTitle("Drawing Panel");
-        setSize(BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
-        setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    private Bunny bunny;
+
+    public DrawingPanel(final int width, final int height, final int timerDelay) {
+        this.PANEL_WIDTH = width;
+        this.PANEL_HEIGHT = height;
+        this.TIMER_DELAY = timerDelay;
+        timer = new Timer(timerDelay, this);
+        timer.start();
+
+        this.bunny = new Bunny(100, 100, 300, 400);
     }
 
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        Bunny bunny = new Bunny(50, 50, 400, 700);
         bunny.draw(g2d);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == timer) {
+            repaint();
+            ++ticksFromStart;
+        }
+    }
 }

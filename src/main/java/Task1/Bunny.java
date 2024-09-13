@@ -16,11 +16,51 @@ public class Bunny {
         this.height = height;
     }
 
-    public void jump(int x) {
+    //y = ax^2 + bx + c
+    //x00 = x - x0
+    //y00 =
+    //y = -x^2
 
+    //x00 = x - x0
+    //y0 = (x00-x0)^2
+
+    //y = -x^2 + 2 * parX0
+
+    public void jump(int x) {
+        int x0 = this.x + width / 2;
+        int parX0 = (x - x0) / 2;
+
+        for (int i = x0; i <= x; i++) {
+            setX(i);
+            setY((int) Math.round(-1 * Math.pow(this.x, 2) + 2 * parX0));
+        }
     }
 
-     public void draw(final Graphics gr) {
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void draw(final Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
 
         //head+ears = 70%
