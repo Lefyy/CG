@@ -2,7 +2,7 @@ package Task1;
 
 import java.awt.*;
 
-public class Bunny {
+public class Bunny extends Entity{
 
     private int x;
     private int y;
@@ -26,15 +26,6 @@ public class Bunny {
 
     //y = -x^2 + 2 * parX0
 
-    public void jump(int x) {
-        int x0 = this.x + width / 2;
-        int parX0 = (x - x0) / 2;
-
-        for (int i = x0; i <= x; i++) {
-            setX(i);
-            setY((int) Math.round(-1 * Math.pow(this.x, 2) + 2 * parX0));
-        }
-    }
 
     public int getX() {
         return x;
