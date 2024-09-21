@@ -17,7 +17,7 @@ public class Grass extends Entity {
     public void draw(Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
 
-        g.setColor(Color.GREEN);
+        g.setColor(new Color(173, 255, 47));
 
         g.fillRect(0, this.y, this.width, this.height);
     }

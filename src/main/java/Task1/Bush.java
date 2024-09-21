@@ -19,7 +19,7 @@ public class Bush extends Entity {
     public void draw(Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
 
-        g.setColor(new Color(0, 100, 0));
+        g.setColor(new Color(34, 139, 34));
         g.fillRect((int) (this.x + this.width * 0.2), (int) (this.y + this.height * 0.5), (int) (this.width * 0.6), (int) (this.height * 0.5));
         g.fillOval(this.x, (int) (this.y + this.height * 0.5), (int) (this.width * 0.4), (int) (this.height * 0.5));
         g.fillOval((int) (this.x + this.width * 0.6), (int) (this.y + this.height * 0.5), (int) (this.width * 0.4), (int) (this.height * 0.5));
