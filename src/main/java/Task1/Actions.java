@@ -6,31 +6,38 @@ public class Actions {
     private int ticksInFinish;
     private int x0;
     private int y0;
+    private int x1;
+    private int y1;
+    private int k;
     private boolean direction; // true = right, false = left
     private int parabolaX0;
 
     public Actions(Entity entity, int x, int ticksFromStart) {
         this.entity = entity;
-        x = x - entity.getWidth() / 2;
+        x1 = x - (entity.getWidth() / 2);
 
         x0 = entity.getX();
         y0 = entity.getY();
 
-        direction = (x - x0) > 0;
-        parabolaX0 = (x - x0) / 2;
+        direction = (x1 - x0) > 0;
+        parabolaX0 = (x1 - x0) / 2;
 
         ticksInStart = ticksFromStart;
-        ticksInFinish = ticksFromStart + Math.abs(x - x0);
+        ticksInFinish = ticksFromStart + (int) Math.round(Math.abs(x1 - x0) / (1 + Math.abs(x1 - x0) / 75.0));
     }
 
     public void entityJump(int ticksFromStart) {
-        int dx = direction ? (ticksFromStart - ticksInStart) : -1 * (ticksFromStart - ticksInStart);
-        int dy = (int) (-1.0 / Math.abs(parabolaX0) * Math.pow(dx, 2) + 2 * Math.abs(dx));
 
-        entity.setX(x0 + dx);
-        entity.setY(y0 - dy);
+        int dx = (int) Math.round(1 + Math.abs(x1 - x0) / 75.0) * (direction ? (ticksFromStart - ticksInStart) : -1 * (ticksFromStart - ticksInStart));
 
-        if (ticksFromStart == ticksInFinish) {
+        if (direction ? x0 + dx < x1 : x0 + dx > x1) {
+            int dy = (int) (-0.5 / Math.abs(parabolaX0) * Math.pow(dx, 2) + Math.abs(dx));
+
+            entity.setX(x0 + dx);
+            entity.setY(y0 - dy);
+        } else {
+            entity.setX(x1);
+            entity.setY(y0);
             clear();
         }
     }
