@@ -3,12 +3,9 @@ package Task1;
 public class Actions {
     private Entity entity;
     private int ticksInStart;
-    private int ticksInFinish;
     private int x0;
     private int y0;
     private int x1;
-    private int y1;
-    private int k;
     private boolean direction; // true = right, false = left
     private int parabolaX0;
 
@@ -23,7 +20,6 @@ public class Actions {
         parabolaX0 = (x1 - x0) / 2;
 
         ticksInStart = ticksFromStart;
-        ticksInFinish = ticksFromStart + (int) Math.round(Math.abs(x1 - x0) / (1 + Math.abs(x1 - x0) / 75.0));
     }
 
     public void entityJump(int ticksFromStart) {
@@ -49,7 +45,6 @@ public class Actions {
     private void clear() {
         entity = null;
         ticksInStart = 0;
-        ticksInFinish = 0;
         x0 = 0;
         y0 = 0;
         parabolaX0 = 0;

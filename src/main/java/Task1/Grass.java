@@ -21,4 +21,19 @@ public class Grass extends Entity {
 
         g.fillRect(0, this.y, this.width, this.height);
     }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
 }
