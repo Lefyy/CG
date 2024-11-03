@@ -1,4 +1,4 @@
-package Task1;
+package vsu.Task1;
 
 import javax.swing.*;
 import java.awt.*;

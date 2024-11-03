@@ -1,4 +1,4 @@
-package Task2CubicSpline;
+package vsu.Task2CubicSpline;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;

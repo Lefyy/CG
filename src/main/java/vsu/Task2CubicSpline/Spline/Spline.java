@@ -1,4 +1,4 @@
-package Task2CubicSpline.Spline;
+package vsu.Task2CubicSpline.Spline;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,10 +22,6 @@ public class Spline {
         setC();
         setB();
         setD();
-    }
-
-    public void draw(final Graphics gr) {
-
     }
 
     private void setH(ArrayList<Integer> X) {

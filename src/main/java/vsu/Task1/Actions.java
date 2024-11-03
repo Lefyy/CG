@@ -1,4 +1,4 @@
-package Task1;
+package vsu.Task1;
 
 public class Actions {
     private Entity entity;
