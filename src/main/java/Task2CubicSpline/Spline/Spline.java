@@ -37,8 +37,34 @@ public class Spline {
         int[][] matrix;
     }
 
-    private int[] solve3DigMatrix(int[][] m) {
+    private int[] solve3DigMatrix(final int[][] m) {
+        int[] u = new int[m.length];
+        int[] v = new int[m.length];
+        int[] x = new int[m.length];
 
+        //Первая строка нахождения коэф. прогонки
+        u[0] = m[0][m[0].length - 1] / m[0][0];
+        v[0] = -m[0][1] / m[0][0];
+
+        //Вторая - предпоследняя строки нахождения коэф. прогонки
+        for (int i = 1; i < m.length - 1; i++) {
+            u[i] = (m[i][m[0].length - 1] - m[i][i - 1] * u[i - 1]);
+            v[i] = -m[i][i + 1] / (m[i][i] + m[i][i - 1] * v[i - 1]);
+        }
+
+        //Последняя строка нахождения коэф. прогонки
+        u[u.length - 1] = (m[m.length - 1][m[0].length - 1] - m[m.length - 1][m.length - 2] * u[u.length - 2]);
+        v[v.length - 1] = 0;
+
+        //Последняя строка ответа
+        x[x.length - 1] = u[u.length - 1];
+
+        //Предпоследняя - первая строки ответа
+        for (int i = x.length - 2; i > -1; i--) {
+            x[i] = v[i] * x[i + 1] + u[i];
+        }
+
+        return x;
     }
 
     private int[][] setCMatrix() {
