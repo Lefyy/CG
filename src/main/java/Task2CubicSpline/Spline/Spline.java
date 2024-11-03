@@ -15,10 +15,13 @@ public class Spline {
     public Spline(ArrayList<Integer> x, ArrayList<Integer> y) {
         X.addAll(x);
         Y.addAll(y);
-
         setH(X);
 
+        //Инициализация коэффициентов
         A.addAll(Y);
+        setC();
+        setB();
+        setD();
     }
 
     public void draw(final Graphics gr) {
@@ -31,6 +34,12 @@ public class Spline {
         }
     }
 
+    private void setB() {
+        for (int i = 0; i < X.size() - 1; i++) {
+            B.add((Y.get(i + 1) - Y.get(i)) / H.get(i) - H.get(i) * (C.get(i + 1) + 2 * C.get(i)) / 3);
+        }
+    }
+
     private void setC() {
         C.add(0);
 
@@ -40,6 +49,12 @@ public class Spline {
         }
 
         C.add(0);
+    }
+
+    private void setD() {
+        for (int i = 0; i < X.size() - 1; i++) {
+            D.add((C.get(i + 1) - C.get(i)) / 3 * H.get(i));
+        }
     }
 
     private int[] solve3DigMatrix(final int[][] m) {
