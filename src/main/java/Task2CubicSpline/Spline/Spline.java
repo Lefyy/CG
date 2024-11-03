@@ -34,7 +34,12 @@ public class Spline {
     private void setC() {
         C.add(0);
 
-        int[][] matrix;
+        int[] m = solve3DigMatrix(setCMatrix());
+        for (int i : m) {
+            C.add(i);
+        }
+
+        C.add(0);
     }
 
     private int[] solve3DigMatrix(final int[][] m) {
