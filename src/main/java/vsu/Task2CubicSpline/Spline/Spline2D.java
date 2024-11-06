@@ -19,6 +19,10 @@ public class Spline2D {
         return new int[] {x, y};
     }
 
+    public int getLastParam() {
+        return PARAMS.getLast();
+    }
+
     private ArrayList<Float> calcParams(ArrayList<Integer> x, ArrayList<Integer> y) {
         ArrayList<Integer> dx = getDiff(x);
         ArrayList<Integer> dy = getDiff(y);

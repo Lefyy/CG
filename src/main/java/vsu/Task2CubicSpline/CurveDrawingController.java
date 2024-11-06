@@ -46,16 +46,20 @@ public class CurveDrawingController {
 
 
         if (Xs.size() > 2) {
+            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             PixelWriter writer = graphicsContext.getPixelWriter();
             Spline2D spline2D = new Spline2D(Xs, Ys);
-            for (int i = 1; i < Xs.size(); i++) {
-                for (int j = Xs.get(i - 1); j < Xs.get(i); j++) {
-                    int[] cords = spline2D.getPoint(j);
-                    writer.setColor(cords[0], cords[1], Color.BLACK);
+            int k = 1;
+            for (int i = 0; i < spline2D.getLastParam(); i++) {
+                if (i / 100 == k) {
+                    k++;
                 }
+                int[] cords = spline2D.getPoint(i);
+                writer.setColor(cords[0], cords[1], Color.BLACK);
             }
+
         } else if (Xs.size() == 2) {
-            graphicsContext.strokeLine(Xs.get(0), Ys.get(0), Xs.get(1), Ys.get(1));
+            //graphicsContext.strokeLine(Xs.get(0), Ys.get(0), Xs.get(1), Ys.get(1));
         }
 
     }
