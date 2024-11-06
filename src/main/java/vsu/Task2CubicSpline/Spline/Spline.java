@@ -24,6 +24,32 @@ public class Spline {
         setD();
     }
 
+    public int getPoint(int param) throws IllegalArgumentException {
+        if (param < X.get(0) || param > X.get(X.size() - 1)) {
+            throw new IllegalArgumentException();
+        }
+
+        int i = searchIndex(param);
+        int dx = param - X.get(i);
+        int result = A.get(i) + B.get(i) * dx + C.get(i) * dx * dx + D.get(i) * dx * dx * dx;
+        return result;
+    }
+
+    private int searchIndex(int x) {
+        int leftF = 0;
+        int rightF = X.size() - 1;
+
+        while (leftF < rightF) {
+            int mid = (leftF + rightF) / 2;
+            if (x < X.get(mid)) {
+                rightF = mid;
+            } else {
+                leftF = mid + 1;
+            }
+        }
+        return leftF - 1;
+    }
+
     private void setH(ArrayList<Integer> X) {
         for (int i = 1; i < X.size(); i++) {
             H.add(X.get(i) - X.get(i - 1));
