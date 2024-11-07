@@ -60,7 +60,7 @@ public class Spline {
         for (int i = 0; i < H.size() - 1; i++) {
             B.add((float) (Y.get(i + 1) - Y.get(i)) / H.get(i) - H.get(i) / 3 * (C.get(i + 1) + 2 * C.get(i)));
         }
-        B.add(0F);
+        B.add((float) (Y.get(Y.size() - 1) - Y.get(Y.size() - 2)) / H.get(H.size() - 1));
     }
 
     private void setC() {

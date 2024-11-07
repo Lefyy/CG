@@ -9,7 +9,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import vsu.Task2CubicSpline.Spline.Spline2D;
+import vsu.Task2CubicSpline.Spline.WuLine;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class CurveDrawingController {
@@ -34,32 +36,36 @@ public class CurveDrawingController {
     }
 
     private void handlePrimaryClick(GraphicsContext graphicsContext, MouseEvent event) {
-        final Point2D clickPoint = new Point2D(event.getX(), event.getY());
+        graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        Xs.add((int) event.getX());
-        Ys.add((int) event.getY());
+        if (!Xs.isEmpty() && (Xs.getLast() != (int) event.getX()) && (Ys.getLast() != (int) event.getY())) {
+            Xs.add((int) event.getX());
+            Ys.add((int) event.getY());
+        } else if (Xs.isEmpty()) {
+            Xs.add((int) event.getX());
+            Ys.add((int) event.getY());
+        }
 
         final int POINT_RADIUS = 3;
-        graphicsContext.fillOval(
-                clickPoint.getX() - POINT_RADIUS, clickPoint.getY() - POINT_RADIUS,
-                2 * POINT_RADIUS, 2 * POINT_RADIUS);
+        for (int i = 0; i < Xs.size(); i++) {
+            graphicsContext.fillOval(
+                    Xs.get(i) - POINT_RADIUS, Ys.get(i) - POINT_RADIUS,
+                    2 * POINT_RADIUS, 2 * POINT_RADIUS);
+        }
 
 
-        if (Xs.size() > 2) {
-            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        if (Xs.size() > 1) {
             PixelWriter writer = graphicsContext.getPixelWriter();
             Spline2D spline2D = new Spline2D(Xs, Ys);
-            int k = 1;
-            for (int i = 0; i < spline2D.getLastParam(); i++) {
-                if (i / 100 == k) {
-                    k++;
-                }
+
+            int[] startCords = spline2D.getPoint(0);
+            for (int i = 1; i < spline2D.getLastParam(); i++) {
                 int[] cords = spline2D.getPoint(i);
-                writer.setColor(cords[0], cords[1], Color.BLACK);
+                WuLine.drawLine(startCords[0], startCords[1], cords[0], cords[1], graphicsContext);
+                startCords = cords.clone();
+//                writer.setColor(cords[0], cords[1], Color.BLACK);
             }
 
-        } else if (Xs.size() == 2) {
-            //graphicsContext.strokeLine(Xs.get(0), Ys.get(0), Xs.get(1), Ys.get(1));
         }
 
     }
