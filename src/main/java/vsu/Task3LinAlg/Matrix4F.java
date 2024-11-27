@@ -7,7 +7,7 @@ public class Matrix4F implements Matrix {
     }
 
     @Override
-    public void mult(Vector v) {
+    public Vector4F mult(Vector v) {
 
     }
 
@@ -17,7 +17,7 @@ public class Matrix4F implements Matrix {
     }
 
     @Override
-    public void transport() {
+    public void transpose() {
 
     }
 }

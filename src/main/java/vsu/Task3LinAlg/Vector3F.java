@@ -10,6 +10,16 @@ public class Vector3F implements Vector {
         vector[2] = z;
     }
 
+    public Vector3F(float[] vec) {
+        if (vec.length != 3) {
+            throw new IllegalArgumentException("Это не трехмерный вектор");
+        } else {
+            vector[0] = vec[0];
+            vector[1] = vec[1];
+            vector[2] = vec[2];
+        }
+    }
+
     public float getX() {
         return vector[0];
     }
@@ -62,7 +72,9 @@ public class Vector3F implements Vector {
 
     @Override
     public float getLength() {
-        return (float) Math.sqrt(vector[0] * vector[0] + vector[1] * vector [1] + vector[2] * vector[2]);
+        return (float) Math.sqrt(vector[0] * vector[0] +
+                vector[1] * vector [1] +
+                vector[2] * vector[2]);
     }
 
     @Override
@@ -78,9 +90,20 @@ public class Vector3F implements Vector {
     @Override
     public float scalMult(Vector v) {
         if (v instanceof Vector3F) {
-            return (vector[0] * ((Vector3F) v).getX() + vector[1] * ((Vector3F) v).getY() + vector[2] * ((Vector3F) v).getZ());
+            return (vector[0] * ((Vector3F) v).getX() +
+                    vector[1] * ((Vector3F) v).getY() +
+                    vector[2] * ((Vector3F) v).getZ());
         } else {
             throw new IllegalArgumentException("Вектор не той размерности в аргументе");
+        }
+    }
+
+    @Override
+    public float get(int index) {
+        if (index > 3 || index < 0) {
+            throw new IllegalArgumentException("Такого индекса нет");
+        } else {
+            return vector[index];
         }
     }
 

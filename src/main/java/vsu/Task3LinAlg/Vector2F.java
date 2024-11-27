@@ -8,6 +8,15 @@ public class Vector2F implements Vector {
         vector[1] = y;
     }
 
+    public Vector2F(float[] vec) {
+        if (vec.length != 2) {
+            throw new IllegalArgumentException("Это не двумерный вектор");
+        } else {
+            vector[0] = vec[0];
+            vector[1] = vec[1];
+        }
+    }
+
     public float getX() {
         return vector[0];
     }
@@ -58,7 +67,8 @@ public class Vector2F implements Vector {
 
     @Override
     public float getLength() {
-        return (float) Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
+        return (float) Math.sqrt(vector[0] * vector[0] +
+                vector[1] * vector[1]);
     }
 
     @Override
@@ -73,9 +83,19 @@ public class Vector2F implements Vector {
     @Override
     public float scalMult(Vector v) {
         if (v instanceof Vector2F) {
-            return (vector[0] * ((Vector2F) v).getX() + vector[1] * ((Vector2F) v).getY());
+            return (vector[0] * ((Vector2F) v).getX() +
+                    vector[1] * ((Vector2F) v).getY());
         } else {
             throw new IllegalArgumentException("Вектор не той размерности в аргументе");
+        }
+    }
+
+    @Override
+    public float get(int index) {
+        if (index > 2 || index < 0) {
+            throw new IllegalArgumentException("Такого индекса нет");
+        } else {
+            return vector[index];
         }
     }
 }

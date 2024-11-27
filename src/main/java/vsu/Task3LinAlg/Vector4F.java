@@ -10,6 +10,17 @@ public class Vector4F implements Vector {
         vector[3] = w;
     }
 
+    public Vector4F(float[] vec) {
+        if (vec.length != 4) {
+            throw new IllegalArgumentException("Это не четырехмерный вектор");
+        } else {
+            vector[0] = vec[0];
+            vector[1] = vec[1];
+            vector[2] = vec[2];
+            vector[3] = vec[3];
+        }
+    }
+
     public float getX() {
         return vector[0];
     }
@@ -68,7 +79,10 @@ public class Vector4F implements Vector {
 
     @Override
     public float getLength() {
-        return (float) Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1] + vector[2] * vector[2] + vector[3] * vector[3]);
+        return (float) Math.sqrt(vector[0] * vector[0] +
+                vector[1] * vector[1] +
+                vector[2] * vector[2] +
+                vector[3] * vector[3]);
     }
 
     @Override
@@ -91,6 +105,15 @@ public class Vector4F implements Vector {
                     vector[3] * ((Vector4F) v).getW());
         } else {
             throw new IllegalArgumentException("Вектор не той размерности в аргументе");
+        }
+    }
+
+    @Override
+    public float get(int index) {
+        if (index > 4 || index < 0) {
+            throw new IllegalArgumentException("Такого индекса нет");
+        } else {
+            return vector[index];
         }
     }
 }

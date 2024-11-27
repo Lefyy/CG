@@ -9,5 +9,6 @@ public interface Vector {
     float getLength();
     void normalize();
     float scalMult(Vector v);
+    float get(int index);
 
 }

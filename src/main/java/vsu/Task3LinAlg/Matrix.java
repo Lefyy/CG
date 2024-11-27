@@ -2,7 +2,8 @@ package vsu.Task3LinAlg;
 
 public interface Matrix {
     void sum(Matrix m);
-    void mult(Vector v);
+    Vector mult(Vector v);
     void mult(Matrix m);
-    void transport();
+    void transpose();
+    float get(int row, int col);
 }
