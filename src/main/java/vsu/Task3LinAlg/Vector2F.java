@@ -9,7 +9,7 @@ public class Vector2F implements Vector {
     }
 
     public Vector2F(float[] vec) {
-        if (vec.length != 2) {
+        if (vec.length != vector.length) {
             throw new IllegalArgumentException("Это не двумерный вектор");
         } else {
             vector[0] = vec[0];
@@ -30,20 +30,22 @@ public class Vector2F implements Vector {
     }
 
     @Override
-    public void sum(Vector v) {
+    public void plus(Vector v) {
         if (v instanceof Vector2F) {
-            vector[0] += ((Vector2F) v).getX();
-            vector[1] += ((Vector2F) v).getY();
+            for (int i = 0; i < vector.length; i++) {
+                vector[i] += v.get(i);
+            }
         } else {
             throw new IllegalArgumentException("В аргументе вектор слишком большой размерности");
         }
     }
 
     @Override
-    public void sub(Vector v) {
+    public void minus(Vector v) {
         if (v instanceof Vector2F) {
-            vector[0] -= ((Vector2F) v).getX();
-            vector[1] -= ((Vector2F) v).getY();
+            for (int i = 0; i < vector.length; i++) {
+                vector[i] -= v.get(i);
+            }
         } else {
             throw new IllegalArgumentException("В аргументе вектор слишком большой размерности");
         }
@@ -75,16 +77,17 @@ public class Vector2F implements Vector {
     public void normalize() {
         float length = getLength();
         if (length > 0.1e-9) {
-            vector[0] /= length;
-            vector[1] /= length;
+            for (int i = 0; i < vector.length; i++) {
+                vector[i] /= length;
+            }
         }
     }
 
     @Override
     public float scalMult(Vector v) {
         if (v instanceof Vector2F) {
-            return (vector[0] * ((Vector2F) v).getX() +
-                    vector[1] * ((Vector2F) v).getY());
+            return (vector[0] * v.get(0) +
+                    vector[1] * v.get(1));
         } else {
             throw new IllegalArgumentException("Вектор не той размерности в аргументе");
         }
@@ -92,10 +95,19 @@ public class Vector2F implements Vector {
 
     @Override
     public float get(int index) {
-        if (index > 2 || index < 0) {
+        if (index > vector.length - 1 || index < 0) {
             throw new IllegalArgumentException("Такого индекса нет");
         } else {
             return vector[index];
+        }
+    }
+
+    @Override
+    public void set(int index, float value) {
+        if (index > vector.length - 1 || index < 0) {
+            throw new IllegalArgumentException("Такого индекса нет");
+        } else {
+            vector[index] = value;
         }
     }
 }

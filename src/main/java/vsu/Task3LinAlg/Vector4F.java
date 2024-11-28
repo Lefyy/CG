@@ -11,7 +11,7 @@ public class Vector4F implements Vector {
     }
 
     public Vector4F(float[] vec) {
-        if (vec.length != 4) {
+        if (vec.length != vector.length) {
             throw new IllegalArgumentException("Это не четырехмерный вектор");
         } else {
             vector[0] = vec[0];
@@ -38,24 +38,22 @@ public class Vector4F implements Vector {
     }
 
     @Override
-    public void sum(Vector v) {
+    public void plus(Vector v) {
         if (v instanceof Vector4F) {
-            vector[0] += ((Vector4F) v).getX();
-            vector[1] += ((Vector4F) v).getY();
-            vector[2] += ((Vector4F) v).getZ();
-            vector[3] += ((Vector4F) v).getW();
+            for (int i = 0; i < vector.length; i++) {
+                vector[i] += v.get(i);
+            }
         } else {
             throw new IllegalArgumentException("В аргументе вектор не той размерности");
         }
     }
 
     @Override
-    public void sub(Vector v) {
+    public void minus(Vector v) {
         if (v instanceof Vector4F) {
-            vector[0] -= ((Vector4F) v).getX();
-            vector[1] -= ((Vector4F) v).getY();
-            vector[2] -= ((Vector4F) v).getZ();
-            vector[3] -= ((Vector4F) v).getW();
+            for (int i = 0; i < vector.length; i++) {
+                vector[i] -= v.get(i);
+            }
         } else {
             throw new IllegalArgumentException("В аргументе вектор не той размерности");
         }
@@ -89,20 +87,19 @@ public class Vector4F implements Vector {
     public void normalize() {
         float length = getLength();
         if (length > 0.1e-9) {
-            vector[0] /= length;
-            vector[1] /= length;
-            vector[2] /= length;
-            vector[3] /= length;
+            for (int i = 0; i < vector.length; i++) {
+                vector[i] /= length;
+            }
         }
     }
 
     @Override
     public float scalMult(Vector v) {
         if (v instanceof Vector4F) {
-            return (vector[0] * ((Vector4F) v).getX() +
-                    vector[1] * ((Vector4F) v).getY() +
-                    vector[2] * ((Vector4F) v).getZ() +
-                    vector[3] * ((Vector4F) v).getW());
+            return (vector[0] * v.get(0) +
+                    vector[1] * v.get(1) +
+                    vector[2] * v.get(2) +
+                    vector[3] * v.get(3));
         } else {
             throw new IllegalArgumentException("Вектор не той размерности в аргументе");
         }
@@ -110,10 +107,19 @@ public class Vector4F implements Vector {
 
     @Override
     public float get(int index) {
-        if (index > 4 || index < 0) {
+        if (index > vector.length - 1 || index < 0) {
             throw new IllegalArgumentException("Такого индекса нет");
         } else {
             return vector[index];
+        }
+    }
+
+    @Override
+    public void set(int index, float value) {
+        if (index > vector.length - 1 || index < 0) {
+            throw new IllegalArgumentException("Такого индекса нет");
+        } else {
+            vector[index] = value;
         }
     }
 }
